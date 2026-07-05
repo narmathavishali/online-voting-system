@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Results</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+
+<body>
+    <a href="/">🏠 Home</a>
+    <br><br>
+
+    <h1>Voting Results</h1>
+
+    {% for candidate, count in results %}
+        <p>{{ candidate }} : {{ count }} votes</p>
+    {% endfor %}
+
+    <h2 class="winner">🏆 Winner: Alice</h2>
+
+    <h2>Vote Analysis</h2>
+
+    <div style="width:700px; height:400px; margin:auto;">
+     <canvas id="voteChart"></canvas>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+<script>
+const labels = [
+    {% for candidate, count in results %}
+        "{{ candidate }}"{% if not loop.last %},{% endif %}
+    {% endfor %}
+];
+
+const votes = [
+{% for candidate, count in results %}
+    {{ count }}{% if not loop.last %},{% endif %}
+{% endfor %}
+];
+
+new Chart(document.getElementById('voteChart'), {
+    type: 'bar',
+    data: {
+        labels: labels,
+    datasets: [{
+    label: 'Votes',
+    data: votes,
+    backgroundColor: [
+        '#4e73df',
+        '#1cc88a',
+        '#f6c23e'
+    ],
+    borderColor: [
+        '#4e73df',
+        '#1cc88a',
+        '#f6c23e'
+    ],
+    borderWidth: 1
+}]    
+    },
+    options: {
+    responsive: true,
+    maintainAspectRatio: false,
+
+    plugins: {
+        title: {
+            display: true,
+            text: 'ONLINE VOTING SYSTEM - RESULTS',
+            font: {
+                size: 22
+            }
+        },
+
+        legend: {
+            display: false
+        }
+    },
+
+    scales: {
+        y: {
+            beginAtZero: true,
+            ticks: {
+                stepSize: 1
+            }
+        }
+    }
+}
+});
+</script>
+
+
+    <a href="/">
+        <button>Back Home</button>
+    </a>
+
+</body>
+</html>

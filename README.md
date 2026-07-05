@@ -31,3 +31,8 @@ ONLINE VOTING SYSTEM/
 ## Author
 
 Narmatha Vishali.s
+
+## Project Repository
+
+GitHub Link:
+https://github.com/narmathavishali/online-voting-system
